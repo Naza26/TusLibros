@@ -23,6 +23,13 @@ class DomainTest(unittest.TestCase):
 
         self.assertTrue(cart.contains_book('Modern Software Engineering'))
 
+    def test_the_cart_does_not_contain_a_book_not_added(self):
+        cart = Cart()
+
+        cart.add_book('Modern Software Engineering')
+
+        self.assertFalse(cart.contains_book('Extreme Programming Explained'))
+
 
 if __name__ == '__main__':
     unittest.main()
