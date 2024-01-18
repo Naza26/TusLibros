@@ -3,7 +3,7 @@ import unittest
 from business.cart import Cart
 
 
-class DomainTest(unittest.TestCase):
+class CartTests(unittest.TestCase):
     def test_a_cart_with_no_books_is_empty(self):
         cart = Cart()
 
