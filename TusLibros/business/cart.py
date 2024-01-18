@@ -10,3 +10,6 @@ class Cart:
 
     def contains_book(self, book):
         return book in self._books
+
+    def list_books(self):
+        return self._books
