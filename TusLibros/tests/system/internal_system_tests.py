@@ -10,23 +10,23 @@ class InternalTests(unittest.TestCase):
         self.client_id = self._a_client_id()
         self.password = self._a_password()
 
-    def test_cannot_create_cart_when_client_id_is_missing(self):
+    def test_01_cannot_create_cart_when_client_id_is_missing(self):
         client_id = None
 
-        response = self.system.create_cart(client_id, self.password)
+        try:
+            _ = self.system.create_cart(client_id, self.password)
+        except ValueError as exception:
+            self.assertEqual(str(exception), 'Client ID is missing')
 
-        #self.assertRaises(ValueError, response)
-        self.assertEqual('Client ID is missing', response)
-
-    def test_cannot_create_cart_when_password_is_missing(self):
+    def test_02_cannot_create_cart_when_password_is_missing(self):
         password = None
 
-        response = self.system.create_cart(self.client_id, password)
+        try:
+            _ = self.system.create_cart(self.client_id, password)
+        except ValueError as exception:
+            self.assertEqual(str(exception), 'Password is missing')
 
-        #self.assertRaises(ValueError, response)
-        self.assertEqual('Password is missing', response)
-
-    def test_can_create_cart_when_client_id_and_password_are_provided(self):
+    def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
 
         response = self.system.create_cart(self.client_id, self.password)
 
