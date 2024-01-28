@@ -1,15 +1,15 @@
 class Cart:
     def __init__(self):
-        self._books = []
+        self._catalogue = []
 
     def is_empty(self):
-        return len(self._books) == 0
+        return len(self._catalogue) == 0
 
     def add_book(self, book):
-        self._books.append(book)
+        self._catalogue.append(book)
 
     def contains_book(self, book):
-        return book in self._books
+        return book in self._catalogue
 
     def list_books(self):
-        return self._books
+        return self._catalogue
