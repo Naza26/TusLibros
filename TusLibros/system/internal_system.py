@@ -17,7 +17,9 @@ class InternalCartSystem:
             return 'Client ID is missing'
         if password is None:
             return 'Password is missing'
+
         cart = Cart()
         cart_id = len(self.cart_system) + 1
         self.cart_system[cart_id] = {'cart': cart, 'client_info': {'client_id': client_id, 'password': password}}
+
         return cart_id
