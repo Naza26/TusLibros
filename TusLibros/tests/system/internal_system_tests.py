@@ -79,7 +79,7 @@ class InternalTests(unittest.TestCase):
         try:
             _ = self.system.add_to_cart(self._a_cart_id(), self.book_isbn, book_quantity)
         except ValueError as exception:
-            self.assertEqual(str(exception), 'Book quantity is missing')
+            self.assertEqual(str(exception), 'Book Quantity is missing')
 
     def _assert_cart_contains_added_book(self, cart_id):
         self.assertTrue(self._a_cart_with(cart_id).contains_book(self.book_isbn))

@@ -24,15 +24,14 @@ class InternalCartSystem:
         return len(self.cart_system) + 1
 
     def _validate_cart_creation_parameters(self, client_id, password):
-        if client_id is None:
-            raise ValueError('Client ID is missing')
-        if password is None:
-            raise ValueError('Password is missing')
+        self._validate_parameter(client_id, "Client ID")
+        self._validate_parameter(password, "Password")
 
     def _validate_cart_addition_parameters(self, cart_id, book_isbn, book_quantity):
-        if cart_id is None:
-            raise ValueError('Cart ID is missing')
-        if book_isbn is None:
-            raise ValueError('Book ISBN is missing')
-        if book_quantity is None:
-            raise ValueError('Book quantity is missing')
+        self._validate_parameter(cart_id, "Cart ID")
+        self._validate_parameter(book_isbn, "Book ISBN")
+        self._validate_parameter(book_quantity, "Book Quantity")
+
+    def _validate_parameter(self, parameter, parameter_name):
+        if parameter is None:
+            raise ValueError(f'{parameter_name} is missing')
