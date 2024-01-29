@@ -63,10 +63,10 @@ class InternalTests(unittest.TestCase):
         self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
 
     def _assert_cart_contains_added_book(self, cart_id):
-        self.assertTrue(self._a_cart_with(cart_id).contains_book(self.book_isbn))
+        self.assertTrue(self._cart_with(cart_id).contains_book(self.book_isbn))
 
-    def _a_cart_with(self, cart_id):
-        return self.system.cart_system[cart_id]['cart']
+    def _cart_with(self, cart_id):
+        return self.system.cart_with(cart_id)
 
     def _a_client_id(self):
         return 'client_id'

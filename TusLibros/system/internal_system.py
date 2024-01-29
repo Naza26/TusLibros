@@ -17,10 +17,10 @@ class InternalCartSystem:
     def add_to_cart(self, cart_id, book_isbn, book_quantity):
         self._validate_cart_addition_parameters(cart_id, book_isbn, book_quantity)
 
-        cart = self._cart_with(cart_id)
+        cart = self.cart_with(cart_id)
         cart.add_book(book_isbn, book_quantity)
 
-    def _cart_with(self, cart_id):
+    def cart_with(self, cart_id):
         return self.cart_system[cart_id]['cart']
 
     def _cart_id(self):
