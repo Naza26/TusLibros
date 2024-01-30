@@ -48,6 +48,23 @@ class InternalTests(unittest.TestCase):
 
         self._assert_books_were_successfully_added_to_cart(response)
 
+    def test_08_cannot_list_cart_if_client_id_is_missing(self):
+        client_id = None
+
+        self._assert_parameter_is_required_for_cart_listing(client_id, "Client ID")
+
+    def test_09_can_list_cart_if_all_required_parameters_are_provided(self):
+        cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
+        self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
+
+        response = self.system.list_cart(self._a_client_id())
+        print(response)
+
+        self._assert_listed_cart_contains_book_isbn_and_quantity(response)
+
+    def _assert_listed_cart_contains_book_isbn_and_quantity(self, response):
+        self.assertEqual([f"{self._a_book_isbn()}|{1}"], response)
+
     def _assert_parameter_is_required_for_cart_creation(self, client_id, password, parameter_name_to_validate):
         with self.assertRaises(ValueError) as context:
             self.system.create_cart(client_id, password)
@@ -59,9 +76,13 @@ class InternalTests(unittest.TestCase):
             self.system.add_to_cart(cart_id, book_isbn, quantity_of_books)
         self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
 
+    def _assert_parameter_is_required_for_cart_listing(self, client_id, parameter_name_to_validate):
+        with self.assertRaises(ValueError) as context:
+            self.system.list_cart(client_id)
+        self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
+
     def _assert_books_were_successfully_added_to_cart(self, response):
         self.assertTrue(response == self.system.SUCCESS_RESPONSE)
-
 
     def _a_client_id(self):
         return 'client_id'

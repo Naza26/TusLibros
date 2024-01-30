@@ -21,6 +21,17 @@ class InternalCartSystem:
 
         return self.SUCCESS_RESPONSE
 
+    def list_cart(self, client_id):
+        self._validate_parameter(client_id, "Client ID")
+
+        books = self._cart.list_books()
+        books_to_list = []
+
+        for book in books:
+            books_to_list.append(f"{book}|{1}")
+
+        return books_to_list
+
     def cart_exists_with(self, cart_id):
         return self._cart is not None
 
