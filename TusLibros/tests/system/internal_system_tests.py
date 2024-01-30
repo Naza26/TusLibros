@@ -61,6 +61,14 @@ class InternalTests(unittest.TestCase):
 
         self._assert_listed_cart_contains_book_isbn_and_quantity(response)
 
+    def test_10_xxx(self):
+        self.system.add_to_cart(self._a_cart_id(), self._a_book_isbn(), self._a_quantity_of_books())
+
+        response = self.system.list_cart(self._a_client_id())
+
+        self._assert_listed_cart_contains_book_isbn_and_quantity(response)
+
+
     def _assert_listed_cart_contains_book_isbn_and_quantity(self, response):
         self.assertEqual([f"{self._a_book_isbn()}|{1}"], response)
 
