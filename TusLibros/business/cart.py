@@ -12,4 +12,4 @@ class Cart:
         return book in self._items
 
     def list_books(self):
-        return self._items
+        return self._items.copy()
