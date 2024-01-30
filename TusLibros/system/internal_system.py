@@ -22,9 +22,13 @@ class InternalCartSystem:
         return self.SUCCESS_RESPONSE
 
     def list_cart(self, client_id):
-        self._validate_parameter(client_id, "Client ID")
+        self._validate_cart_listing_parameters(client_id)
 
         books = self._cart.list_books()
+
+        return self._present_books(books)
+
+    def _present_books(self, books):
         books_to_list = []
 
         for book in books:
@@ -43,6 +47,9 @@ class InternalCartSystem:
         self._validate_parameter(cart_id, "Cart ID")
         self._validate_parameter(book_isbn, "Book ISBN")
         self._validate_parameter(book_quantity, "Book Quantity")
+
+    def _validate_cart_listing_parameters(self, client_id):
+        self._validate_parameter(client_id, "Client ID")
 
     def _validate_parameter(self, parameter, parameter_name):
         if parameter is None:
