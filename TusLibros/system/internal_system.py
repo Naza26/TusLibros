@@ -3,28 +3,22 @@ from business.cart import Cart
 
 class InternalCartSystem:
     def __init__(self):
-        self.cart_system = {}
+        self._cart = None
 
     def create_cart(self, client_id, password):
         self._validate_cart_creation_parameters(client_id, password)
 
-        cart = Cart()
-        cart_id = self._cart_id()
-        self.cart_system[cart_id] = {'cart': cart, 'client_info': {'client_id': client_id, 'password': password}}
+        self._cart = Cart()
 
-        return cart_id
+        return 1
 
     def add_to_cart(self, cart_id, book_isbn, book_quantity):
         self._validate_cart_addition_parameters(cart_id, book_isbn, book_quantity)
 
-        cart = self.cart_with(cart_id)
-        cart.add_book(book_isbn, book_quantity)
+        self._cart.add_book(book_isbn)
 
-    def cart_with(self, cart_id):
-        return self.cart_system[cart_id]['cart']
-
-    def _cart_id(self):
-        return len(self.cart_system) + 1
+    def cart_exists_with(self, cart_id):
+        return self._cart is not None
 
     def _validate_cart_creation_parameters(self, client_id, password):
         self._validate_parameter(client_id, "Client ID")

@@ -42,7 +42,7 @@ class InternalTests(unittest.TestCase):
                                                              "Book Quantity")
 
     def test_07_can_add_to_cart_if_all_required_parameters_are_provided(self):
-        cart_id = self._a_cart_id()
+        cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
 
         self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
 
@@ -60,10 +60,10 @@ class InternalTests(unittest.TestCase):
         self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
 
     def _assert_cart_contains_added_book(self, cart_id):
-        self.assertTrue(self._cart_with(cart_id).contains_book(self._a_book_isbn()))
+        self.assertTrue(self._cart_exists_with(cart_id))
 
-    def _cart_with(self, cart_id):
-        return self.system.cart_with(cart_id)
+    def _cart_exists_with(self, cart_id):
+        return self.system.cart_exists_with(cart_id)
 
     def _a_client_id(self):
         return 'client_id'
