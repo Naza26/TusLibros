@@ -58,7 +58,6 @@ class InternalTests(unittest.TestCase):
         self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
 
         response = self.system.list_cart(self._a_client_id())
-        print(response)
 
         self._assert_listed_cart_contains_book_isbn_and_quantity(response)
 
