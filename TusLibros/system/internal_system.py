@@ -2,6 +2,8 @@ from business.cart import Cart
 
 
 class InternalCartSystem:
+    SUCCESS_RESPONSE = "OK"
+
     def __init__(self):
         self._cart = None
 
@@ -16,6 +18,8 @@ class InternalCartSystem:
         self._validate_cart_addition_parameters(cart_id, book_isbn, book_quantity)
 
         self._cart.add_book(book_isbn)
+
+        return self.SUCCESS_RESPONSE
 
     def cart_exists_with(self, cart_id):
         return self._cart is not None
