@@ -5,3 +5,5 @@ Después los puedo relacionar, pero de esa manera empiezo a familiarizarme con e
 
 Una vez desarollado el dominio me encontre con dificultades en la interfaz, lo que conectaría el frontend y el backend. Siguiendo lo que vi en clase sobre pensar en una capa interna y otra externa, empece desarollando lo que espera recibir y devolver la interfaz acorde a los requerimientos del sistema.
 Algo curioso que me sucedió es que desarollando la interfaz me sentí obligada a hacer cambios en el dominio, porque había resultado muy trivial y la implementación no me había servido mucho (aunque esto ya lo sabía de antemano).
+
+La capa interna nunca podría devolver un objeto de dominio, porque no existe tal con confianza con la interfaz ni tampoco quiero tenerla. Quiero devolver cosas que representen que tengo esos objetos ó si los tengo bien o no, pero no el objeto per sé.
