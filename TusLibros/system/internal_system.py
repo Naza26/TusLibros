@@ -23,13 +23,15 @@ class InternalCartSystem:
 
     def list_cart(self, client_id):
         self._validate_cart_listing_parameters(client_id)
-
-        if self._cart is None:
-            raise ValueError("Cart does not exist")
+        self._validate_cart_exists()
 
         books = self._cart.list_books()
 
         return self._present_books(books)
+
+    def _validate_cart_exists(self):
+        if self._cart is None:
+            raise ValueError("Cart does not exist")
 
     def _present_books(self, books):
         books_to_list = []
