@@ -16,6 +16,7 @@ class InternalCartSystem:
 
     def add_to_cart(self, cart_id, book_isbn, book_quantity):
         self._validate_cart_addition_parameters(cart_id, book_isbn, book_quantity)
+        self._validate_cart_exists()
 
         self._cart.add_book(book_isbn)
 
