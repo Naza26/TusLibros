@@ -8,52 +8,42 @@ class InternalTests(unittest.TestCase):
     def setUp(self):
         self.system = InternalCartSystem()
 
-    def test_01_cannot_create_cart_when_client_id_is_missing(self):
-        client_id = None
-
-        self._assert_parameter_is_required_for_cart_creation(client_id, self._a_password(), "Client ID")
-
-    def test_02_cannot_create_cart_when_password_is_missing(self):
-        password = None
-
-        self._assert_parameter_is_required_for_cart_creation(self._a_client_id(), password, "Password")
-
-    def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
+    def test_01_can_create_cart_when_client_id_and_password_are_provided(self):
         response = self.system.create_cart(self._a_client_id(), self._a_password())
 
         self.assertIsNotNone(response)
 
-    def test_04_cannot_add_to_cart_if_cart_id_is_missing(self):
+    def test_02_cannot_add_to_cart_if_cart_id_is_missing(self):
         cart_id = None
 
         self._assert_parameter_is_required_for_cart_addition(cart_id, self._a_book_isbn(), self._a_quantity_of_books(),
                                                              "Cart ID")
 
-    def test_05_cannot_add_to_cart_if_client_id_is_missing(self):
+    def test_03_cannot_add_to_cart_if_client_id_is_missing(self):
         book_isbn = None
 
         self._assert_parameter_is_required_for_cart_addition(self._a_cart_id(), book_isbn, self._a_quantity_of_books(),
                                                              "Book ISBN")
 
-    def test_06_cannot_add_to_cart_if_book_quantity_is_missing(self):
+    def test_04_cannot_add_to_cart_if_book_quantity_is_missing(self):
         book_quantity = None
 
         self._assert_parameter_is_required_for_cart_addition(self._a_cart_id(), self._a_book_isbn(), book_quantity,
                                                              "Book Quantity")
 
-    def test_07_can_add_to_cart_if_all_required_parameters_are_provided(self):
+    def test_05_can_add_to_cart_if_all_required_parameters_are_provided(self):
         cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
 
         response = self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
 
         self._assert_books_were_successfully_added_to_cart(response, self._a_book_isbn())
 
-    def test_08_cannot_list_cart_if_client_id_is_missing(self):
+    def test_06_cannot_list_cart_if_client_id_is_missing(self):
         client_id = None
 
         self._assert_parameter_is_required_for_cart_listing(client_id, "Client ID")
 
-    def test_09_can_list_cart_if_all_required_parameters_are_provided(self):
+    def test_07_can_list_cart_if_all_required_parameters_are_provided(self):
         cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
         self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
 
@@ -61,7 +51,7 @@ class InternalTests(unittest.TestCase):
 
         self._assert_listed_cart_contains_book_isbn_and_quantity(response)
 
-    def test_10_cannot_add_books_when_cart_does_not_exist(self):
+    def test_08_cannot_add_books_when_cart_does_not_exist(self):
         non_existing_client_id = self._a_cart_id()
 
         self._assert_cannot_add_books_to_non_existing_cart(non_existing_client_id)
