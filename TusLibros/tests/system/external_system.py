@@ -44,11 +44,6 @@ class ExternalTests(unittest.TestCase):
 
         self._assert_parameter_is_required_for_cart_listing(client_id, "Client ID")
 
-    def _assert_parameter_is_required_for_cart_creation(self, client_id, password, parameter_name_to_validate):
-        with self.assertRaises(ValueError) as context:
-            self.system.create_cart(client_id, password)
-        self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
-
     def _assert_cannot_add_book_to_non_existing_cart(self, response):
         self.assertEqual(response, "Cart does not exist")
 
