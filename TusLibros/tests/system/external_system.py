@@ -10,6 +10,8 @@ class ExternalTests(unittest.TestCase):
         self.system = ExternalCartSystem()
         self.request = None
 
+    # TODO: Ask if modelling a request for each endpoint makes sense. IDK if it's a lot of overhead
+    # I wanted to put in that object what each enpoint was expecting as required parameters
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
         self.request = CreateCartRequest()
         client_id = None
