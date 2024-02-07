@@ -5,6 +5,7 @@ class InternalCartSystem:
     SUCCESS_RESPONSE = "OK"
 
     def __init__(self):
+        # TODO: Ask if this is not breaking the heuristic of creating complete and valid objects
         self._cart = None
 
     def create_cart(self, client_id, password):

@@ -13,39 +13,46 @@ class ExternalTests(unittest.TestCase):
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
         self.request = CreateCartRequest()
         client_id = None
+        password = self._get_password_from(self.request)
 
-        self._assert_parameter_is_required_for_cart_creation(client_id, self._get_password_from(self.request),
-                                                             "Client ID")
+        self._assert_parameter_is_required_for_cart_creation(client_id, password, "Client ID")
 
     def test_02_cannot_create_cart_when_password_is_missing(self):
+        client_id = self._get_client_id_from(self.request)
         password = None
 
-        self._assert_parameter_is_required_for_cart_creation(self._get_client_id_from(self.request), password,
-                                                             "Password")
+        self._assert_parameter_is_required_for_cart_creation(client_id, password, "Password")
 
-    def test_03_cannot_add_to_cart_if_cart_id_is_missing(self):
+    def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
+        client_id = self._get_client_id_from(self.request)
+        password = self._get_password_from(self.request)
+
+        response = self.system.create_cart(client_id, password)
+
+        self.assertIsNotNone(response)
+
+    def test_04_cannot_add_to_cart_if_cart_id_is_missing(self):
         cart_id = None
+        book_isbn = self._get_book_isbn_from(self.request)
+        book_quantity = self._get_quantity_of_books_from(self.request)
 
-        self._assert_parameter_is_required_for_cart_addition(cart_id, self._get_book_isbn_from(self.request),
-                                                             self._get_quantity_of_books_from(self.request),
-                                                             "Cart ID")
+        self._assert_parameter_is_required_for_cart_addition(cart_id, book_isbn, book_quantity, "Cart ID")
 
-    def test_04_cannot_add_to_cart_if_client_id_is_missing(self):
+    def test_05_cannot_add_to_cart_if_client_id_is_missing(self):
+        client_id = self._get_cart_id_from(self.request)
         book_isbn = None
+        book_quantity = self._get_quantity_of_books_from(self.request)
 
-        self._assert_parameter_is_required_for_cart_addition(self._get_cart_id_from(self.request), book_isbn,
-                                                             self._get_quantity_of_books_from(self.request),
-                                                             "Book ISBN")
+        self._assert_parameter_is_required_for_cart_addition(client_id, book_isbn, book_quantity, "Book ISBN")
 
-    def test_05_cannot_add_to_cart_if_book_quantity_is_missing(self):
+    def test_06_cannot_add_to_cart_if_book_quantity_is_missing(self):
+        cart_id = self._get_cart_id_from(self.request)
+        book_isbn = self._get_book_isbn_from(self.request)
         book_quantity = None
 
-        self._assert_parameter_is_required_for_cart_addition(self._get_cart_id_from(self.request),
-                                                             self._get_book_isbn_from(self.request),
-                                                             book_quantity,
-                                                             "Book Quantity")
+        self._assert_parameter_is_required_for_cart_addition(cart_id, book_isbn, book_quantity, "Book Quantity")
 
-    def test_06_cannot_list_cart_if_client_id_is_missing(self):
+    def test_07_cannot_list_cart_if_client_id_is_missing(self):
         client_id = None
 
         self._assert_parameter_is_required_for_cart_listing(client_id, "Client ID")
