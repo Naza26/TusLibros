@@ -1,6 +1,6 @@
 import unittest
 
-from http_protocol.requests.create_cart_request import CreateCartRequest
+from http_protocol.requests.request import Request
 from system.external_system import ExternalCartSystem
 
 
@@ -8,22 +8,17 @@ class ExternalTests(unittest.TestCase):
 
     def setUp(self):
         self.system = ExternalCartSystem()
-        self.request = None
+        self.request = Request()
 
-    # TODO: Ask if modelling a request for each endpoint makes sense. IDK if it's a lot of overhead
-    # I wanted to put in that object what each endpoint was expecting as required parameters
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
-        self.request = CreateCartRequest()
-        client_id = None
-        password = self._get_password_from(self.request)
 
-        self._assert_parameter_is_required_for_cart_creation(client_id, password, "Client ID")
+        self._assert_parameter_is_required_for_cart_creation(self.request, "Client ID")
 
     def test_02_cannot_create_cart_when_password_is_missing(self):
         client_id = self._get_client_id_from(self.request)
         password = None
 
-        self._assert_parameter_is_required_for_cart_creation(client_id, password, "Password")
+        self._assert_parameter_is_required_for_cart_creation(self.request, "Password")
 
     def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
         client_id = self._get_client_id_from(self.request)
@@ -59,7 +54,7 @@ class ExternalTests(unittest.TestCase):
 
         self._assert_parameter_is_required_for_cart_listing(client_id, "Client ID")
 
-    def _assert_parameter_is_required_for_cart_creation(self, client_id, password, parameter_name_to_validate):
+    def _assert_parameter_is_required_for_cart_creation(self, request, parameter_name_to_validate):
         with self.assertRaises(ValueError) as context:
             self.system.create_cart(request)
         self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')

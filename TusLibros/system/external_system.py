@@ -6,10 +6,9 @@ class ExternalCartSystem:
         self.system = InternalCartSystem()
 
     def create_cart(self, request):
-        client_id = self._get_client_id_from(request)
-        password = self._get_password_from(request)
-        params = request.post_parameters()
-        params.client_id
+        params = request.http_post_parameters('/createCart')
+        client_id = params.get('client_id')
+        password = params.get('password')
         self._validate_cart_creation_parameters(client_id, password)
 
         return self.system.create_cart(client_id, password)
