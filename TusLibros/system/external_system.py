@@ -5,17 +5,25 @@ class ExternalCartSystem:
     def __init__(self):
         self.system = InternalCartSystem()
 
-    def create_cart(self, client_id, password):
+    def create_cart(self, request):
+        client_id = self._get_client_id_from(request)
+        password = self._get_password_from(request)
+        params = request.post_parameters()
+        params.client_id
         self._validate_cart_creation_parameters(client_id, password)
 
         return self.system.create_cart(client_id, password)
 
-    def add_to_cart(self, cart_id, book_isbn, book_quantity):
+    def add_to_cart(self, request):
+        cart_id = self._get_cart_id_from(request)
+        book_isbn = self._get_book_isbn_from(request)
+        book_quantity = self._get_quantity_of_books_from(request)
         self._validate_cart_addition_parameters(cart_id, book_isbn, book_quantity)
 
         return self.system.add_to_cart(cart_id, book_isbn, book_quantity)
 
-    def list_cart(self, client_id):
+    def list_cart(self, request):
+        client_id = self._get_client_id_from(request)
         self._validate_cart_listing_parameters(client_id)
 
         return self.system.list_cart(client_id)

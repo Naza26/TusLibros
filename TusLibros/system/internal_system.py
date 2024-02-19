@@ -6,6 +6,7 @@ class InternalCartSystem:
 
     def __init__(self):
         # TODO: Ask if this is not breaking the heuristic of creating complete and valid objects
+        # SOLVED: This is fine for now. I will need to refactor it later on when I have multiple carts.
         self._cart = None
 
     def create_cart(self, client_id, password):

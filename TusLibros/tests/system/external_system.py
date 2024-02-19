@@ -11,7 +11,7 @@ class ExternalTests(unittest.TestCase):
         self.request = None
 
     # TODO: Ask if modelling a request for each endpoint makes sense. IDK if it's a lot of overhead
-    # I wanted to put in that object what each enpoint was expecting as required parameters
+    # I wanted to put in that object what each endpoint was expecting as required parameters
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
         self.request = CreateCartRequest()
         client_id = None
@@ -61,7 +61,7 @@ class ExternalTests(unittest.TestCase):
 
     def _assert_parameter_is_required_for_cart_creation(self, client_id, password, parameter_name_to_validate):
         with self.assertRaises(ValueError) as context:
-            self.system.create_cart(client_id, password)
+            self.system.create_cart(request)
         self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
 
     def _assert_parameter_is_required_for_cart_addition(self, cart_id, book_isbn, quantity_of_books,
