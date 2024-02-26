@@ -11,20 +11,17 @@ class ExternalTests(unittest.TestCase):
         self.request = Request()
 
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
+        self.request.body.update({'client_id': None})
 
         self._assert_parameter_is_required_for_cart_creation(self.request, "Client ID")
 
     def test_02_cannot_create_cart_when_password_is_missing(self):
-        client_id = self._get_client_id_from(self.request)
-        password = None
+        self.request.body().update({'password': None})
 
         self._assert_parameter_is_required_for_cart_creation(self.request, "Password")
 
     def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
-        client_id = self._get_client_id_from(self.request)
-        password = self._get_password_from(self.request)
-
-        response = self.system.create_cart(client_id, password)
+        response = self.system.create_cart(self.request)
 
         self.assertIsNotNone(response)
 
