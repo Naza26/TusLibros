@@ -10,9 +10,17 @@ class Request:
 
     def http_post_parameters_for(self, url):
         if '/createCart' in url:
-            self.body.update({'client_id': self._client_id(), 'password': self._password()})
+            body_items = list(self.body.items())
+            body_items = body_items[:2]
+            return dict(body_items)
         if '/addToCart' in url:
-            self.body.update({'cart_id': None, 'book_isbn': None, 'book_quantity': None})
+            body_items = list(self.body.items())
+            body_items = body_items[1:]
+            return dict(body_items)
+        if '/listCart' in url:
+            body_items = list(self.body.items())
+            body_items = body_items[:1]
+            return dict(body_items)
 
         return self.body
 

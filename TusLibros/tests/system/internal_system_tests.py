@@ -5,25 +5,26 @@ from system.internal_system import InternalCartSystem
 
 # TODO: Doubt: Is it correct to save the call to some business logic in a variable named result instead of response?
 # I was thinking in the internal face to call it result and in the outer face to call it response
-# HTTP difference? The decision I took seems correct to me but i don't know why yet,
+# HTTP difference?
+# TODO: Assert bussiness response in the external face or in the internal face?
 class InternalTests(unittest.TestCase):
 
     def setUp(self):
         self.system = InternalCartSystem()
 
-    def test_01_can_create_cart_when_client_id_and_password_are_provided(self):
+    def test_01_can_create_cart_when_credentials_are_provided(self):
         result = self.system.create_cart(self._a_client_id(), self._a_password())
 
         self._assert_is_valid_cart_id(result)
 
-    def test_02_can_add_to_cart_if_all_required_parameters_are_provided(self):
+    def test_02_can_add_books_when_cart_is_created(self):
         cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
 
         result = self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
 
         self._assert_books_were_successfully_added_to_cart(result, self._a_book_isbn())
 
-    def test_03_can_list_cart_if_all_required_parameters_are_provided(self):
+    def test_03_can_list_books_when_cart_is_created(self):
         cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
         self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
 
@@ -35,6 +36,9 @@ class InternalTests(unittest.TestCase):
         non_existing_client_id = self._an_invalid_cart_id()
 
         self._assert_cannot_add_books_to_non_existing_cart(non_existing_client_id)
+
+    def test_05_cannot_list_books_when_cart_does_not_exist(self):
+        pass
 
     def _assert_listed_cart_contains_book_isbn_and_quantity(self, response):
         self.assertEqual([f"{self._a_book_isbn()}|{1}"], response)

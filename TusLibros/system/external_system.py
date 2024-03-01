@@ -9,6 +9,7 @@ class ExternalCartSystem:
         params = request.http_post_parameters_for('/createCart')
         client_id = params.get('client_id')
         password = params.get('password')
+
         self._validate_cart_creation_parameters(client_id, password)
 
         return self.system.create_cart(client_id, password)
@@ -18,12 +19,15 @@ class ExternalCartSystem:
         cart_id = params.get('cart_id')
         book_isbn = params.get('book_isbn')
         book_quantity = params.get('book_quantity')
+
         self._validate_cart_addition_parameters(cart_id, book_isbn, book_quantity)
 
         return self.system.add_to_cart(cart_id, book_isbn, book_quantity)
 
     def list_cart(self, request):
-        client_id = self._get_client_id_from(request)
+        params = request.http_post_parameters_for('/listCart')
+        client_id = params.get('client_id')
+
         self._validate_cart_listing_parameters(client_id)
 
         return self.system.list_cart(client_id)

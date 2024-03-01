@@ -3,6 +3,8 @@ import unittest
 from business.cart import Cart
 
 
+# TODO: I'm missing this test: No puedo agregar un libro que no está en el catálogo de la editorial.
+
 class CartTests(unittest.TestCase):
     def test_a_cart_with_no_books_is_empty(self):
         cart = Cart()
