@@ -1,18 +1,14 @@
 import unittest
 
 from business.cart import Cart
-from tests.business.editorial import Editorial
+from business.editorial import Editorial
 
-
-# TODO: I'm missing this test: No puedo agregar un libro que no está en el catálogo de la editorial.
 
 class CartTests(unittest.TestCase):
 
-    def __init__(self):
-        super().__init__()
-        self._editorial = Editorial()
+    def setUp(self):
+        self._editorial = Editorial(Cart())
         self._catalogue = self._editorial.catalogue()
-
 
     def test_a_cart_with_no_books_is_empty(self):
         cart = self._editorial.cart()
@@ -55,11 +51,11 @@ class CartTests(unittest.TestCase):
             cart.add_book('Non existent book')
         self.assertEqual(str(context.exception), 'Book is not in catalogue')
 
-    def _another_book(self):
-        return 'Extreme Programming Explained'
-
     def _a_book(self):
-        return 'Modern Software Engineering'
+        return self._editorial.catalogue().a_book()
+
+    def _another_book(self):
+        return self._editorial.catalogue().another_book()
 
 
 if __name__ == '__main__':
