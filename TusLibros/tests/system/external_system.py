@@ -62,7 +62,15 @@ class ExternalTests(unittest.TestCase):
         self.assertTrue(response.is_bad_request())
         self.assertTrue(response.failed_with_message("Book Quantity is missing"))
 
-    def test_07_cannot_list_cart_if_client_id_is_missing(self):
+    def test_07_can_add_books_when_cart_exists(self):
+        request = Request()
+        self.system.create_cart(request)
+
+        response = self.system.add_to_cart(request)
+
+        self.assertTrue(response.is_successful())
+
+    def test_08_cannot_list_cart_if_client_id_is_missing(self):
         request = Request()
         request.body.update({'client_id': None})
 
@@ -71,23 +79,15 @@ class ExternalTests(unittest.TestCase):
         self.assertTrue(response.is_bad_request())
         self.assertTrue(response.failed_with_message("Client ID is missing"))
 
-    def _assert_parameter_is_required_for_cart_creation(self, request, parameter_name_to_validate):
-        with self.assertRaises(ValueError) as context:
-            self.system.create_cart(request)
-        self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
+    def test_09_can_list_books_when_cart_exists(self):
+        request = Request()
+        self.system.create_cart(request)
+        self.system.add_to_cart(request)
 
-    def _assert_parameter_is_required_for_cart_addition(self, request, parameter_name_to_validate):
-        with self.assertRaises(ValueError) as context:
-            self.system.add_to_cart(request)
-        self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
+        response = self.system.list_cart(request)
 
-    def _assert_parameter_is_required_for_cart_listing(self, request, parameter_name_to_validate):
-        with self.assertRaises(ValueError) as context:
-            self.system.list_cart(request)
-        self.assertEqual(str(context.exception), f'{parameter_name_to_validate} is missing')
-
-    def _assert_cannot_add_book_to_non_existing_cart(self, response):
-        self.assertEqual(response, "Cart does not exist")
+        self.assertTrue(response.is_successful())
+        self.assertIsNotNone(response.content())
 
 
 if __name__ == '__main__':

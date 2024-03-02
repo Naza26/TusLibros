@@ -3,7 +3,6 @@ import unittest
 from system.internal_system import InternalCartSystem
 
 
-# TODO: Assert business response in the external face or in the internal face?
 class InternalTests(unittest.TestCase):
 
     def setUp(self):
@@ -54,8 +53,6 @@ class InternalTests(unittest.TestCase):
         self.assertEqual(str(context.exception), 'Cart does not exist')
 
     def _assert_books_were_successfully_added_to_cart(self, expected_response, expected_books):
-        # TODO: Check if below line should be verified in the external face since 200 is an HTTP status code
-        self.assertTrue(expected_response == self.system.SUCCESS_RESPONSE)
         listed_books = self.system.list_cart(1)
         self.assertTrue(expected_books, listed_books)
 

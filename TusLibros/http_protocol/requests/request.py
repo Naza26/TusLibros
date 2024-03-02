@@ -2,8 +2,8 @@ class Request:
     def __init__(self):
         self.http_method = 'GET'
         self.url = None
-        self.body = {'client_id': 'client_id', 'password': 'password', 'cart_id': 'cart_id', 'book_isbn': 'book_isbn',
-                     'book_quantity': 2}
+        self.body = {'client_id': 'client_id', 'password': 'password', 'cart_id': 'cart_id',
+                     'book_isbn': 'Modern Software Engineering', 'book_quantity': 2}
 
     def http_get_parameters(self):
         return 1
