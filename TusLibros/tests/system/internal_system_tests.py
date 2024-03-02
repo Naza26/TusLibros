@@ -3,7 +3,7 @@ import unittest
 from system.internal_system import InternalCartSystem
 
 
-# TODO: Assert bussiness response in the external face or in the internal face?
+# TODO: Assert business response in the external face or in the internal face?
 class InternalTests(unittest.TestCase):
 
     def setUp(self):
@@ -16,15 +16,15 @@ class InternalTests(unittest.TestCase):
 
     def test_02_can_add_books_when_cart_is_created(self):
         cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
-        expected_books = [self._a_book_isbn()]
+        expected_books = [self._a_book()]
 
-        result = self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
+        result = self.system.add_to_cart(cart_id, self._a_book(), self._a_quantity_of_books())
 
         self._assert_books_were_successfully_added_to_cart(result, expected_books)
 
     def test_03_can_list_books_when_cart_is_created(self):
         cart_id = self.system.create_cart(self._a_client_id(), self._a_password())
-        self.system.add_to_cart(cart_id, self._a_book_isbn(), self._a_quantity_of_books())
+        self.system.add_to_cart(cart_id, self._a_book(), self._a_quantity_of_books())
 
         result = self.system.list_cart(self._a_client_id())
 
@@ -41,11 +41,11 @@ class InternalTests(unittest.TestCase):
         self._assert_cannot_list_books_to_non_existing_cart(non_existing_cart_id)
 
     def _assert_listed_cart_contains_book_isbn_and_quantity(self, response):
-        self.assertEqual([f"{self._a_book_isbn()}|{1}"], response)
+        self.assertEqual([f"{self._a_book()}|{1}"], response)
 
     def _assert_cannot_add_books_to_non_existing_cart(self, non_existing_cart_id):
         with self.assertRaises(ValueError) as context:
-            self.system.add_to_cart(non_existing_cart_id, self._a_book_isbn(), self._a_quantity_of_books())
+            self.system.add_to_cart(non_existing_cart_id, self._a_book(), self._a_quantity_of_books())
         self.assertEqual(str(context.exception), 'Cart does not exist')
 
     def _assert_cannot_list_books_to_non_existing_cart(self, non_existing_cart_id):
@@ -65,8 +65,9 @@ class InternalTests(unittest.TestCase):
     def _a_password(self):
         return 'password'
 
-    def _a_book_isbn(self):
-        return 'book_isbn'
+    # TODO: I should not be using this message to obtain a book here
+    def _a_book(self):
+        return 'Modern Software Engineering'
 
     def _a_quantity_of_books(self):
         return 1
