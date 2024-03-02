@@ -13,43 +13,63 @@ class ExternalTests(unittest.TestCase):
         request = Request()
         request.body.update({'client_id': None})
 
-        self._assert_parameter_is_required_for_cart_creation(request, "Client ID")
+        response = self.system.create_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Client ID is missing"))
 
     def test_02_cannot_create_cart_when_password_is_missing(self):
         request = Request()
         request.body.update({'password': None})
 
-        self._assert_parameter_is_required_for_cart_creation(request, "Password")
+        response = self.system.create_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Password is missing"))
 
     def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
         request = Request()
+
         response = self.system.create_cart(request)
 
-        self.assertIsNotNone(response)
+        self.assertIsNotNone(response.content())
+        self.assertTrue(response.is_successful())
 
     def test_04_cannot_add_to_cart_if_cart_id_is_missing(self):
         request = Request()
         request.body.update({'cart_id': None})
 
-        self._assert_parameter_is_required_for_cart_addition(request, "Cart ID")
+        response = self.system.add_to_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Cart ID is missing"))
 
     def test_05_cannot_add_to_cart_if_client_id_is_missing(self):
         request = Request()
         request.body.update({'book_isbn': None})
 
-        self._assert_parameter_is_required_for_cart_addition(request, "Book ISBN")
+        response = self.system.add_to_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Book ISBN is missing"))
 
     def test_06_cannot_add_to_cart_if_book_quantity_is_missing(self):
         request = Request()
         request.body.update({'book_quantity': None})
 
-        self._assert_parameter_is_required_for_cart_addition(request, "Book Quantity")
+        response = self.system.add_to_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Book Quantity is missing"))
 
     def test_07_cannot_list_cart_if_client_id_is_missing(self):
         request = Request()
         request.body.update({'client_id': None})
 
-        self._assert_parameter_is_required_for_cart_listing(request, "Client ID")
+        response = self.system.list_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Client ID is missing"))
 
     def _assert_parameter_is_required_for_cart_creation(self, request, parameter_name_to_validate):
         with self.assertRaises(ValueError) as context:

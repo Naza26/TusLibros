@@ -2,7 +2,7 @@ from business.cart import Cart
 from business.catalogue import Catalogue
 
 
-class Editorial:
+class EditorialSystem:
 
     def __init__(self, cart):
         self._catalogue = Catalogue(self._books_in_stock())
