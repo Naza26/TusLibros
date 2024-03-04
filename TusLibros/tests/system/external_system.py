@@ -1,6 +1,6 @@
 import unittest
 
-from http_protocol.requests.request import Request
+from http_protocol.request import Request
 from system.external_system import ExternalCartSystem
 
 

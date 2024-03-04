@@ -4,7 +4,8 @@ from business.catalogue import Catalogue
 class Cart:
     def __init__(self):
         self._items = []
-        # TODO: I don't think the cart should know about the catalogue. I need to understand how to relation the 3 entities.
+        # TODO: I don't think the cart should know about the catalogue. I need to understand how to relation the 3
+        #  entities.
         self._catalogue = Catalogue(self._books_in_stock())
 
     def is_empty(self):

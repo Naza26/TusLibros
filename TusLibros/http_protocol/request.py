@@ -28,9 +28,3 @@ class Request:
             return dict(body_items)
 
         return self.body
-
-    def _client_id(self):
-        return "client_id"
-
-    def _password(self):
-        return "password"
