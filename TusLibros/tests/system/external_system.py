@@ -135,5 +135,36 @@ class ExternalTests(unittest.TestCase):
         self.assertTrue(response.is_successful())
 
 
+    def test_15_cannot_list_purchases_if_client_id_is_missing(self):
+        request = Request()
+        request.body.update({'client_id': None})
+
+        response = self.system.list_purchases(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Client ID is missing"))
+
+    def test_16_cannot_list_purchases_if_password_is_missing(self):
+        request = Request()
+        request.body.update({'password': None})
+
+        response = self.system.list_purchases(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Password is missing"))
+
+
+    def test_17_can_list_purchases_when_credentials_are_provided(self):
+        request = Request()
+        self.system.create_cart(request)
+        self.system.add_to_cart(request)
+        self.system.checkout_cart(request)
+
+        response = self.system.list_purchases(request)
+
+        self.assertTrue(response.is_successful())
+        self.assertIsNotNone(response.content())
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -40,6 +40,14 @@ class InternalCartSystem:
 
         return self.SUCCESS_RESPONSE
 
+    def list_purchases(self, client_id):
+        # I would want to validate that the client id can be parsed
+        self._validate_cart_exists()
+
+        purchases = self._cart.list_purchases(client_id)
+
+        return self._present_purchases(purchases)
+
     def _validate_cart_exists(self):
         if self._cart is None:
             raise ValueError("Cart does not exist")
@@ -51,3 +59,11 @@ class InternalCartSystem:
             books_to_list.append(f"{book}|{1}")
 
         return books_to_list
+
+    def _present_purchases(self, purchases):
+        purchases_to_list = []
+
+        for purchase in purchases:
+            purchases_to_list.append(f"{'ISBN'}|{1}")
+
+        return purchases_to_list
