@@ -47,6 +47,10 @@ class CartTests(unittest.TestCase):
 
     def test_cannot_add_book_that_is_not_in_catalogue(self):
         cart = self._editorial_system.cart()
+
+        self._assert_cannot_add_book_that_is_not_in_catalogue(cart)
+
+    def _assert_cannot_add_book_that_is_not_in_catalogue(self, cart):
         with self.assertRaises(ValueError) as context:
             cart.add_book(self._a_book_that_is_not_in_catalogue())
         self.assertEqual(str(context.exception), 'Book is not in catalogue')

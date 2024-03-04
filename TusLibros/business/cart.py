@@ -21,6 +21,9 @@ class Cart:
     def list_books(self):
         return self._items.copy()
 
+    def checkout(self, cart_id, credit_card_number, credit_card_expiration_date, credit_card_owner):
+        return 1
+
     # TODO: This message should not go here, it's supposed to be in the editorial
     def _books_in_stock(self):
         return [

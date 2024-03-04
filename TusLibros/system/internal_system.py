@@ -32,6 +32,14 @@ class InternalCartSystem:
 
         return self._present_books(books)
 
+    def checkout_cart(self, cart_id, credit_card_number, credit_card_expiration_date, credit_card_owner):
+        # I would want to validate that the cart id can be parsed and that the credit card number is a number
+        self._validate_cart_exists()
+
+        self._cart.checkout(cart_id, credit_card_number, credit_card_expiration_date, credit_card_owner)
+
+        return self.SUCCESS_RESPONSE
+
     def _validate_cart_exists(self):
         if self._cart is None:
             raise ValueError("Cart does not exist")
@@ -43,6 +51,3 @@ class InternalCartSystem:
             books_to_list.append(f"{book}|{1}")
 
         return books_to_list
-
-    def cart_exists_with(self, cart_id):
-        return self._cart is not None

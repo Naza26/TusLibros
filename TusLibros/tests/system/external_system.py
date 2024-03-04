@@ -89,6 +89,51 @@ class ExternalTests(unittest.TestCase):
         self.assertTrue(response.is_successful())
         self.assertIsNotNone(response.content())
 
+    def test_10_cannot_checkout_cart_if_cart_id_is_missing(self):
+        request = Request()
+        request.body.update({'cart_id': None})
+
+        response = self.system.checkout_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Cart ID is missing"))
+
+    def test_11_cannot_checkout_cart_if_credit_card_number_is_missing(self):
+        request = Request()
+        request.body.update({'credit_card_number': None})
+
+        response = self.system.checkout_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Credit Card Number is missing"))
+
+    def test_12_cannot_checkout_cart_if_credit_card_expiration_date_is_missing(self):
+        request = Request()
+        request.body.update({'credit_card_expiration_date': None})
+
+        response = self.system.checkout_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Credit Card Expiration Date is missing"))
+
+    def test_13_cannot_checkout_cart_if_credit_card_owner_is_missing(self):
+        request = Request()
+        request.body.update({'credit_card_owner': None})
+
+        response = self.system.checkout_cart(request)
+
+        self.assertTrue(response.is_bad_request())
+        self.assertTrue(response.failed_with_message("Credit Card Owner is missing"))
+
+    def test_14_can_checkout_cart_when_all_parameters_are_provided(self):
+        request = Request()
+        self.system.create_cart(request)
+        self.system.add_to_cart(request)
+
+        response = self.system.checkout_cart(request)
+
+        self.assertTrue(response.is_successful())
+
 
 if __name__ == '__main__':
     unittest.main()
