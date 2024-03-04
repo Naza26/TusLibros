@@ -1,4 +1,3 @@
-from business.cart import Cart
 from business.catalogue import Catalogue
 
 
