@@ -134,7 +134,6 @@ class ExternalTests(unittest.TestCase):
 
         self.assertTrue(response.is_successful())
 
-
     def test_15_cannot_list_purchases_if_client_id_is_missing(self):
         request = Request()
         request.body.update({'client_id': None})
@@ -152,7 +151,6 @@ class ExternalTests(unittest.TestCase):
 
         self.assertTrue(response.is_bad_request())
         self.assertTrue(response.failed_with_message("Password is missing"))
-
 
     def test_17_can_list_purchases_when_credentials_are_provided(self):
         request = Request()
