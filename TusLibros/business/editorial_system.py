@@ -3,8 +3,8 @@ from business.catalogue import Catalogue
 
 class EditorialSystem:
 
-    def __init__(self, cart):
-        self._catalogue = Catalogue(self._books_in_stock())
+    def __init__(self, cart, new_catalogue):
+        self._catalogue = Catalogue(new_catalogue or self._books_in_stock())
         self._cart = cart
 
     def catalogue(self):

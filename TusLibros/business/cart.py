@@ -2,11 +2,10 @@ from business.catalogue import Catalogue
 
 
 class Cart:
-    def __init__(self):
+    def __init__(self, catalogue):
         self._items = []
-        # TODO: I don't think the cart should know about the catalogue. I need to understand how to relation the 3
-        #  entities.
-        self._catalogue = Catalogue(self._books_in_stock())
+        # TODO: Understand how to decouple the catalogue from the cart.
+        self._catalogue = catalogue
 
     def is_empty(self):
         return len(self._items) == 0
@@ -27,14 +26,3 @@ class Cart:
 
     def list_purchases(self, client_id):
         return []
-
-    # TODO: This message should not go here, it's supposed to be in the editorial
-    def _books_in_stock(self):
-        return [
-            'Modern Software Engineering',
-            'Extreme Programming Explained'
-            'Planning Extreme Programming',
-            'Domain-Driven Design',
-            'Object Thinking',
-            'Test Driven Development: By Example'
-        ]

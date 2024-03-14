@@ -1,4 +1,5 @@
 from business.cart import Cart
+from business.catalogue import Catalogue
 
 
 class InternalCartSystem:
@@ -12,7 +13,7 @@ class InternalCartSystem:
     def create_cart(self, client_id, password):
         # I would want to validate that the client id can be parsed and something with the password
 
-        self._cart = Cart()
+        self._cart = Cart(Catalogue(self._books_in_stock()))
 
         return 1
 
@@ -67,3 +68,13 @@ class InternalCartSystem:
             purchases_to_list.append(f"{'ISBN'}|{1}")
 
         return purchases_to_list
+
+    def _books_in_stock(self):
+        return [
+            'Modern Software Engineering',
+            'Extreme Programming Explained'
+            'Planning Extreme Programming',
+            'Domain-Driven Design',
+            'Object Thinking',
+            'Test Driven Development: By Example'
+        ]
