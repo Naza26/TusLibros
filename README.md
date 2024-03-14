@@ -29,3 +29,11 @@ Y con respecto al resto de tus respuestas te diria que recuerdes la heuristica d
 Por otro lado, creo que aunque es verdad que no tiene mucho comportamiento la clase, es un punto de partida. Es un por ahora, va ir ganando más contexto a medida que yo sepa más.
 No creo que valga la pena tener un diccionario o alguna estructura de datos primitiva porque estoy refiriendome al sistema de la editorial escondiendo el nombre, para eso mejor que tenga nombre.
 Además, siento que sigue con el modelo 1:1 de la realidad. Una editorial que me da cosas, no hago diccionario["catalogo"]
+
+Un poco de contexto y lo que sabemos sobre HTTP:
+
+Surge la necesidad de usar requests y responses de HTTP. A priori uno pensaría que necesitamos usar algo que nos provea una biblioteca. No vamos a usarlo porque por ahora nuestros objetos son simples y no queremos acoplarnos a eso de inmediato. Me parece interesante charlarlo después para ver si hubiera que escalar el programa tuvieramos la necesidad de usar algo algún paquete. En caso de necesitarlo, como podemos resolver el problema sin acoplarnos a una dependencia externa.
+
+La request y la response HTTP tiene normalmente un header y un body.
+El body tendría un diccionario clave-valor como lo dice el enunciado. Siempre vamos a manejar strings. Los requests son de distinto tipo (metodo HTTP). Depende la acción que hago tendría que usar un método HTTP u otro.
+La response además de estas mismas cosas, tiene un status code para indicar como terminó esa petición.
