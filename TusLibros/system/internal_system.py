@@ -11,9 +11,9 @@ class InternalSystem:
         self._cart = None
 
     def create_cart(self, client_id, password):
-        # I would want to validate that the client id can be parsed and something with the password
+        # Validate credentials against some service?
 
-        self._cart = Cart(Catalogue(self._books_in_stock()))
+        self._cart = Cart(Catalogue())
 
         return 1
 
@@ -25,8 +25,8 @@ class InternalSystem:
 
         return self.SUCCESS_RESPONSE
 
-    def list_cart(self, client_id):
-        # I would want to validate that the client id can be parsed
+    def list_cart(self, cart_id):
+        # I would want to validate that the cart id can be parsed
         self._validate_cart_exists()
 
         books = self._cart.list_books()
@@ -68,13 +68,3 @@ class InternalSystem:
             purchases_to_list.append(f"{'ISBN'}|{1}")
 
         return purchases_to_list
-
-    def _books_in_stock(self):
-        return [
-            'Modern Software Engineering',
-            'Extreme Programming Explained'
-            'Planning Extreme Programming',
-            'Domain-Driven Design',
-            'Object Thinking',
-            'Test Driven Development: By Example'
-        ]
