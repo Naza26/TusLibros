@@ -10,25 +10,25 @@ class CartTests(unittest.TestCase):
         self._catalogue = Catalogue()
         self._cart = Cart(self._catalogue)
 
-    def test_a_cart_with_no_books_is_empty(self):
+    def test_01_a_cart_with_no_books_is_empty(self):
         self.assertTrue(self._cart.is_empty())
 
-    def test_a_cart_with_books_is_not_empty(self):
+    def test_02_a_cart_with_books_is_not_empty(self):
         self._cart.add_book(self._a_book())
 
         self.assertFalse(self._cart.is_empty())
 
-    def test_the_cart_contains_the_added_book(self):
+    def test_03_the_cart_contains_the_added_book(self):
         self._cart.add_book(self._a_book())
 
         self.assertTrue(self._cart.contains_book(self._a_book()))
 
-    def test_the_cart_does_not_contain_a_book_not_added(self):
+    def test_04_the_cart_does_not_contain_a_book_not_added(self):
         self._cart.add_book(self._a_book())
 
         self.assertFalse(self._cart.contains_book(self._another_book()))
 
-    def test_books_added_to_the_cart_can_be_listed(self):
+    def test_05_books_added_to_the_cart_can_be_listed(self):
         self._cart.add_book(self._a_book())
         self._cart.add_book(self._another_book())
 
@@ -36,7 +36,7 @@ class CartTests(unittest.TestCase):
 
         self.assertEqual([self._a_book(), self._another_book()], listed_books)
 
-    def test_cannot_add_book_that_is_not_in_catalogue(self):
+    def test_06_cannot_add_book_that_is_not_in_catalogue(self):
         self._assert_cannot_add_book_that_is_not_in_catalogue(self._cart)
 
     def _assert_cannot_add_book_that_is_not_in_catalogue(self, cart):
