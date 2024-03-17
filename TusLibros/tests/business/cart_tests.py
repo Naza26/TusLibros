@@ -7,7 +7,7 @@ from business.catalogue import Catalogue
 class CartTests(unittest.TestCase):
 
     def setUp(self):
-        self._catalogue = Catalogue(self._books_in_stock())
+        self._catalogue = Catalogue()
         self._cart = Cart(self._catalogue)
 
     def test_a_cart_with_no_books_is_empty(self):
@@ -52,16 +52,6 @@ class CartTests(unittest.TestCase):
 
     def _a_book_that_is_not_in_catalogue(self):
         return 'Cormen'
-
-    def _books_in_stock(self):
-        return [
-            'Modern Software Engineering',
-            'Extreme Programming Explained'
-            'Planning Extreme Programming',
-            'Domain-Driven Design',
-            'Object Thinking',
-            'Test Driven Development: By Example'
-        ]
 
 
 if __name__ == '__main__':
