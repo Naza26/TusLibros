@@ -163,6 +163,8 @@ class ExternalTests(unittest.TestCase):
         self.assertTrue(response.is_successful())
         self.assertIsNotNone(response.content())
 
+    # TODO: Implement /checkOutCart and /listPurchases with their corresponding errors
+
 
 if __name__ == '__main__':
     unittest.main()
