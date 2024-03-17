@@ -1,5 +1,7 @@
 from flask import Flask
 
+from system.external_system import ExternalSystem
+
 
 class WebServer:
     DEFAULT_PORT_NUMBER = 5000
@@ -7,6 +9,7 @@ class WebServer:
     def __init__(self):
         self._port_number = self.DEFAULT_PORT_NUMBER
         self._app = Flask(__name__)
+        self._rest_interface = ExternalSystem()
 
         self._register_endpoints()
 

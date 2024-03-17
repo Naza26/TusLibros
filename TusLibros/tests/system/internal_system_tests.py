@@ -1,12 +1,12 @@
 import unittest
 
-from system.internal_system import InternalCartSystem
+from system.internal_system import InternalSystem
 
 
 class InternalTests(unittest.TestCase):
 
     def setUp(self):
-        self.system = InternalCartSystem()
+        self.system = InternalSystem()
 
     def test_01_can_create_cart_when_credentials_are_provided(self):
         cart_id = self.system.create_cart(self._a_client_id(), self._a_password())

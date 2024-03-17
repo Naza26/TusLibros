@@ -1,13 +1,13 @@
 import unittest
 
 from http_protocol.request import Request
-from system.external_system import ExternalCartSystem
+from system.external_system import ExternalSystem
 
 
 class ExternalTests(unittest.TestCase):
 
     def setUp(self):
-        self.system = ExternalCartSystem()
+        self.system = ExternalSystem()
 
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
         request = Request()

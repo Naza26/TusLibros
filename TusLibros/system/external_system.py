@@ -1,10 +1,10 @@
 from http_protocol.response import Response
-from system.internal_system import InternalCartSystem
+from system.internal_system import InternalSystem
 
 
-class ExternalCartSystem:
+class ExternalSystem:
     def __init__(self):
-        self._system = InternalCartSystem()
+        self._system = InternalSystem()
 
     def create_cart(self, request):
         params = request.http_post_parameters_for('/createCart')

@@ -2,7 +2,7 @@ from business.cart import Cart
 from business.catalogue import Catalogue
 
 
-class InternalCartSystem:
+class InternalSystem:
     SUCCESS_RESPONSE = "OK"
 
     def __init__(self):
