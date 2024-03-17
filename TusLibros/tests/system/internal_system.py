@@ -3,7 +3,7 @@ import unittest
 from system.internal_system import InternalSystem
 
 
-class InternalTests(unittest.TestCase):
+class InternalSystemTests(unittest.TestCase):
 
     def setUp(self):
         self.system = InternalSystem()

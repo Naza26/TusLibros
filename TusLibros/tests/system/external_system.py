@@ -4,7 +4,7 @@ from http_protocol.request import Request
 from system.external_system import ExternalSystem
 
 
-class ExternalTests(unittest.TestCase):
+class ExternalSystemTests(unittest.TestCase):
 
     def setUp(self):
         self.system = ExternalSystem()
