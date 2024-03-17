@@ -37,3 +37,5 @@ Surge la necesidad de usar requests y responses de HTTP. A priori uno pensaría 
 La request y la response HTTP tiene normalmente un header y un body.
 El body tendría un diccionario clave-valor como lo dice el enunciado. Siempre vamos a manejar strings. Los requests son de distinto tipo (metodo HTTP). Depende la acción que hago tendría que usar un método HTTP u otro.
 La response además de estas mismas cosas, tiene un status code para indicar como terminó esa petición.
+
+El server lo corro como: python3 web_server.py
