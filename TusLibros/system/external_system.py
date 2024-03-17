@@ -52,9 +52,9 @@ class ExternalSystem:
 
     def list_cart(self, request):
         params = request.http_post_parameters_for('/listCart')
-        client_id = params.get('client_id')
+        client_id = params.get('cart_id')
 
-        body = self._validate_parameter(client_id, 'Client ID')
+        body = self._validate_parameter(client_id, 'Cart ID')
 
         if body is not None:
             return Response(Response.BAD_REQUEST_RESPONSE, body)

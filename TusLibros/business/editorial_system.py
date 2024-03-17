@@ -4,7 +4,6 @@ class EditorialSystem:
         # self._catalogue = Catalogue(new_catalogue)
         self._cart = cart
 
-
     @classmethod
     def books_in_stock(cls):
         return [
@@ -21,4 +20,3 @@ class EditorialSystem:
 
     def cart(self):
         return self._cart
-
