@@ -39,3 +39,18 @@ El body tendría un diccionario clave-valor como lo dice el enunciado. Siempre v
 La response además de estas mismas cosas, tiene un status code para indicar como terminó esa petición.
 
 El server lo corro como: python3 web_server.py
+
+
+Un Web Server consta de un cliente y un servidor que se pueden mandar mensajes entre sí. Estos mensajes se conocen como peticiones y respuestas (request/response) y pueden ocurrir a través de cualquier protocolo (HTTP, HTTPS, SOAP). Los protocolos definen cómo se envíaran esos mensajes entre cliente y servidor (sintaxis, formato, etc).
+
+REST API es un API específico para Web Servers que usa un estilo de arquitectura REST basado en el protocolo HTTP. 
+Esto inlcuye:
+
+- Metodos HTTP (GET, POST, DELETE, PUT)
+- URLs especificas (/surveys, /surveys/123)
+- Respuesta del servidor en formato JSON ({survey_id: "123", "score": 9, ...})
+
+
+
+
+
