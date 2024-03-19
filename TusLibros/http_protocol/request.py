@@ -7,8 +7,11 @@ class Request:
         self.url = url
         self.body = body
 
+    def __repr__(self):
+        return f'HTTP Method {self.http_method} for {self.url} with content {self.body}'
+
     def http_post_parameters_for(self, url):
         return self.body
 
-    def __repr__(self):
-        return f'HTTP Method {self.http_method} for {self.url} with content {self.body}'
+
+

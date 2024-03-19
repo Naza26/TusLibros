@@ -7,6 +7,9 @@ class Response:
         self._headers = headers
         self._body = body
 
+    def __repr__(self):
+        return f'Response with status code {self._status_code} and content {self._body}'
+
     def is_successful(self):
         return self._status_code == self.OK_RESPONSE
 

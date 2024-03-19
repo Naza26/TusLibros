@@ -10,6 +10,7 @@ class ExternalSystemTests(unittest.TestCase):
         self.system = ExternalSystem()
 
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
+        # TODO: Think of the scenes and actors metaphore to remove repeated code?
         body = {'client_id': None, 'password': 'password'}
         request = Request(Request.HTTP_POST_METHOD, '/createCart', body)
 
