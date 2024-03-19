@@ -87,9 +87,13 @@ class ExternalSystemTests(unittest.TestCase):
         body = {'client_id': 'client_id', 'password': 'password'}
         request = Request(Request.HTTP_GET_METHOD, '/createCart', body)
         self.system.create_cart(request)
+
         body = {'cart_id': 'cart_id', 'book_isbn': 'Modern Software Engineering', 'book_quantity': 2}
-        request = Request(Request.HTTP_GET_METHOD, '/addToCart', body)
+        request = Request(Request.HTTP_POST_METHOD, '/addToCart', body)
         self.system.add_to_cart(request)
+
+        body = {'cart_id': 'cart_id'}
+        request = Request(Request.HTTP_POST_METHOD, '/listCart', body)
 
         response = self.system.list_cart(request)
 
@@ -148,9 +152,11 @@ class ExternalSystemTests(unittest.TestCase):
         body = {'client_id': 'client_id', 'password': 'password'}
         request = Request(Request.HTTP_POST_METHOD, '/createCart', body)
         self.system.create_cart(request)
+
         body = {'cart_id': 'cart_id', 'book_isbn': 'Modern Software Engineering', 'book_quantity': 2}
         request = Request(Request.HTTP_POST_METHOD, '/addToCart', body)
         self.system.add_to_cart(request)
+
         body = {'cart_id': 'cart_id',
                 'credit_card_number': '1234567890',
                 'credit_card_expiration_date': '399',
@@ -183,15 +189,18 @@ class ExternalSystemTests(unittest.TestCase):
         body = {'client_id': 'client_id', 'password': 'password'}
         request = Request(Request.HTTP_POST_METHOD, '/createCart', body)
         self.system.create_cart(request)
+
         body = {'cart_id': 'cart_id', 'book_isbn': 'Modern Software Engineering', 'book_quantity': 2}
         request = Request(Request.HTTP_POST_METHOD, '/addToCart', body)
         self.system.add_to_cart(request)
+
         body = {'cart_id': 'cart_id',
                 'credit_card_number': '1234567890',
                 'credit_card_expiration_date': '399',
                 'credit_card_owner': 'John Doe'}
         request = Request(Request.HTTP_POST_METHOD, '/checkoutCart', body)
         self.system.checkout_cart(request)
+
         body = {'client_id': 'client_id', 'password': 'password'}
         request = Request(Request.HTTP_GET_METHOD, 'listPurchases', body)
 

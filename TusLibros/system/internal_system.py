@@ -41,11 +41,11 @@ class InternalSystem:
 
         return self.SUCCESS_RESPONSE
 
-    def list_purchases(self, client_id):
+    def list_purchases(self, client_id, password):
         # I would want to validate that the client id can be parsed
         self._validate_cart_exists()
 
-        purchases = self._cart.list_purchases(client_id)
+        purchases = self._cart.list_purchases(client_id, password)
 
         return self._present_purchases(purchases)
 

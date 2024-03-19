@@ -24,5 +24,5 @@ class Cart:
     def checkout(self, cart_id, credit_card_number, credit_card_expiration_date, credit_card_owner):
         return 1
 
-    def list_purchases(self, client_id):
+    def list_purchases(self, client_id, password):
         return []
