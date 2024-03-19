@@ -16,7 +16,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.create_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Client ID is missing"))
+        self.assertTrue(response.failed_with_message("client_id is missing"))
 
     def test_02_cannot_create_cart_when_password_is_missing(self):
         body = {'client_id': 'client_id', 'password': None}
@@ -25,7 +25,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.create_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Password is missing"))
+        self.assertTrue(response.failed_with_message("password is missing"))
 
     def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
         body = {'client_id': 'client_id', 'password': 'password'}
@@ -43,7 +43,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.add_to_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Cart ID is missing"))
+        self.assertTrue(response.failed_with_message("cart_id is missing"))
 
     def test_05_cannot_add_to_cart_if_book_isbn_is_missing(self):
         body = {'cart_id': 'cart_id', 'book_isbn': None, 'book_quantity': 2}
@@ -52,7 +52,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.add_to_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Book ISBN is missing"))
+        self.assertTrue(response.failed_with_message("book_isbn is missing"))
 
     def test_06_cannot_add_to_cart_if_book_quantity_is_missing(self):
         body = {'cart_id': 'cart_id', 'book_isbn': 'book_isbn', 'book_quantity': None}
@@ -61,7 +61,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.add_to_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Book Quantity is missing"))
+        self.assertTrue(response.failed_with_message("book_quantity is missing"))
 
     def test_07_can_add_books_when_cart_exists(self):
         body = {'client_id': 'client_id', 'password': 'password'}
@@ -81,7 +81,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.list_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Cart ID is missing"))
+        self.assertTrue(response.failed_with_message("cart_id is missing"))
 
     def test_09_can_list_books_when_cart_exists(self):
         body = {'client_id': 'client_id', 'password': 'password'}
@@ -106,7 +106,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.checkout_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Cart ID is missing"))
+        self.assertTrue(response.failed_with_message("cart_id is missing"))
 
     def test_11_cannot_checkout_cart_if_credit_card_number_is_missing(self):
         body = {'cart_id': 'cart_id',
@@ -118,7 +118,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.checkout_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Credit Card Number is missing"))
+        self.assertTrue(response.failed_with_message("credit_card_number is missing"))
 
     def test_12_cannot_checkout_cart_if_credit_card_expiration_date_is_missing(self):
         body = {'cart_id': 'cart_id',
@@ -130,7 +130,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.checkout_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Credit Card Expiration Date is missing"))
+        self.assertTrue(response.failed_with_message("credit_card_expiration_date is missing"))
 
     def test_13_cannot_checkout_cart_if_credit_card_owner_is_missing(self):
         body = {'cart_id': 'cart_id',
@@ -142,7 +142,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.checkout_cart(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Credit Card Owner is missing"))
+        self.assertTrue(response.failed_with_message("credit_card_owner is missing"))
 
     def test_14_can_checkout_cart_when_all_parameters_are_provided(self):
         body = {'client_id': 'client_id', 'password': 'password'}
@@ -168,7 +168,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.list_purchases(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Client ID is missing"))
+        self.assertTrue(response.failed_with_message("client_id is missing"))
 
     def test_16_cannot_list_purchases_if_password_is_missing(self):
         body = {'client_id': 'client_id', 'password': None}
@@ -177,7 +177,7 @@ class ExternalSystemTests(unittest.TestCase):
         response = self.system.list_purchases(request)
 
         self.assertTrue(response.is_bad_request())
-        self.assertTrue(response.failed_with_message("Password is missing"))
+        self.assertTrue(response.failed_with_message("password is missing"))
 
     def test_17_can_list_purchases_when_credentials_are_provided(self):
         body = {'client_id': 'client_id', 'password': 'password'}
