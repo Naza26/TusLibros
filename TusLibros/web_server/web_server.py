@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 
 from http_protocol.request import Request
 from http_protocol.response import Response
@@ -40,10 +40,10 @@ class WebServer:
             return self._execute_resource_for('list_purchases')
 
     def _execute_resource_for(self, endpoint):
-        http_request = Request('GET', endpoint, request.args.to_dict())
+        http_request = Request(request.method, endpoint, request.args.to_dict())
         execute_resource_for = self._rest_interface_resource_from(endpoint)
         http_response = execute_resource_for(http_request)
-        return Response(response=http_response.body(), status_code=str(http_response.status_code()))
+        return Response(http_response.content(), str(http_response.status_code()))
 
     def _rest_interface_resource_from(self, endpoint):
         return getattr(self._rest_interface, endpoint)

@@ -21,3 +21,6 @@ class Response:
 
     def content(self):
         return self._body['objects']
+
+    def status_code(self):
+        return self._status_code
