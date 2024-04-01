@@ -4,7 +4,6 @@ from business.catalogue import Catalogue
 class Cart:
     def __init__(self, catalogue):
         self._items = []
-        # TODO: Understand how to decouple the catalogue from the cart.
         self._catalogue = catalogue
 
     def is_empty(self):

@@ -21,6 +21,7 @@ class WebServer:
     def _register_endpoints(self):
         @self._app.route('/createCart')
         def create_cart():
+
             return self._execute_resource_for('create_cart')
 
         @self._app.route('/addToCart')
