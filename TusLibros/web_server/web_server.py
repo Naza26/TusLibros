@@ -44,7 +44,8 @@ class WebServer:
         http_request = Request(request.method, endpoint, request.args.to_dict())
         execute_resource_for = self._rest_interface_resource_from(endpoint)
         http_response = execute_resource_for(http_request)
-        return Response(http_response.content(), str(http_response.status_code()))
+        # TODO: Check if this is the correct way to return the response
+        return str(Response(http_response.content(), str(http_response.status_code())))
 
     def _rest_interface_resource_from(self, endpoint):
         return getattr(self._rest_interface, endpoint)

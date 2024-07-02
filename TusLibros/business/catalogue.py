@@ -10,6 +10,8 @@ def default_books():
 
 
 class Catalogue:
+    DEFAULT_QUANTITY = 1
+
     def __init__(self, books=default_books()):
         self._books = books
 

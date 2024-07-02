@@ -4,14 +4,44 @@ from http_protocol.request import Request
 from system.external_system import ExternalSystem
 
 
+class ExternalSystemFactory:
+
+    def __init__(self):
+        self.system = ExternalSystem()
+
+    def system(self):
+        return self.system
+
+    def create_body_with_empty_client_id(self):
+        return {'client_id': None, 'password': 'password'}
+
+    def create_body_with_empty_password(self):
+        return {'client_id': 'client_id', 'password': None}
+
+    def create_body_with_valid_credentials(self):
+        return {'client_id': 'client_id', 'password': 'password'}
+
+    def create_body_with_empty_cart_id(self):
+        return {'cart_id': None, 'book_isbn': 'Modern Software Engineering', 'book_quantity': 2}
+
+    def create_body_with_empty_book_isbn(self):
+        return {'cart_id': 'cart_id', 'book_isbn': None, 'book_quantity': 2}
+
+    def create_body_with_empty_book_quantity(self):
+        return {'cart_id': 'cart_id', 'book_isbn': 'Modern Software Engineering', 'book_quantity': None}
+
+    def create_body_with_valid_cart_id(self):
+        return {'cart_id': 'cart_id', 'book_isbn': 'Modern Software Engineering', 'book_quantity': 2}
+
+
 class ExternalSystemTests(unittest.TestCase):
 
     def setUp(self):
-        self.system = ExternalSystem()
+        self.external_system_factory = ExternalSystemFactory()
+        self.system = self.external_system_factory.system()
 
     def test_01_cannot_create_cart_when_client_id_is_missing(self):
-        # TODO: Think of the scenes and actors metaphore to remove repeated code?
-        body = {'client_id': None, 'password': 'password'}
+        body = self.external_system_factory.create_body_with_empty_client_id()
         request = Request(Request.HTTP_POST_METHOD, '/createCart', body)
 
         response = self.system.create_cart(request)
@@ -20,7 +50,7 @@ class ExternalSystemTests(unittest.TestCase):
         self.assertTrue(response.failed_with_message("client_id is missing"))
 
     def test_02_cannot_create_cart_when_password_is_missing(self):
-        body = {'client_id': 'client_id', 'password': None}
+        body = self.external_system_factory.create_body_with_empty_password()
         request = Request(Request.HTTP_POST_METHOD, '/createCart', body)
 
         response = self.system.create_cart(request)
@@ -29,7 +59,7 @@ class ExternalSystemTests(unittest.TestCase):
         self.assertTrue(response.failed_with_message("password is missing"))
 
     def test_03_can_create_cart_when_client_id_and_password_are_provided(self):
-        body = {'client_id': 'client_id', 'password': 'password'}
+        body = self.external_system_factory.create_body_with_valid_credentials()
         request = Request(Request.HTTP_POST_METHOD, '/createCart', body)
 
         response = self.system.create_cart(request)
@@ -38,7 +68,7 @@ class ExternalSystemTests(unittest.TestCase):
         self.assertTrue(response.is_successful())
 
     def test_04_cannot_add_to_cart_if_cart_id_is_missing(self):
-        body = {'cart_id': None, 'book_isbn': 'Modern Software Engineering', 'book_quantity': 2}
+        body = self.external_system_factory.create_body_with_empty_cart_id()
         request = Request(Request.HTTP_POST_METHOD, '/addToCart', body)
 
         response = self.system.add_to_cart(request)
@@ -47,7 +77,7 @@ class ExternalSystemTests(unittest.TestCase):
         self.assertTrue(response.failed_with_message("cart_id is missing"))
 
     def test_05_cannot_add_to_cart_if_book_isbn_is_missing(self):
-        body = {'cart_id': 'cart_id', 'book_isbn': None, 'book_quantity': 2}
+        body = self.external_system_factory.create_body_with_empty_book_isbn()
         request = Request(Request.HTTP_POST_METHOD, '/addToCart', body)
 
         response = self.system.add_to_cart(request)
@@ -56,7 +86,7 @@ class ExternalSystemTests(unittest.TestCase):
         self.assertTrue(response.failed_with_message("book_isbn is missing"))
 
     def test_06_cannot_add_to_cart_if_book_quantity_is_missing(self):
-        body = {'cart_id': 'cart_id', 'book_isbn': 'book_isbn', 'book_quantity': None}
+        body = self.external_system_factory.create_body_with_empty_book_quantity()
         request = Request(Request.HTTP_POST_METHOD, '/addToCart', body)
 
         response = self.system.add_to_cart(request)

@@ -15,6 +15,7 @@ class ExternalSystem:
 
     def add_to_cart(self, request):
         params = request.http_post_parameters_for('/addToCart')
+
         body = self._build_body_with(self._system.add_to_cart, **params)
 
         return self._send_response_for(body)
