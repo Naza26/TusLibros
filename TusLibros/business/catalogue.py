@@ -15,6 +15,10 @@ class Catalogue:
     def __init__(self, books=default_books()):
         self._books = books
 
+    @classmethod
+    def book_is_not_in_catalogue_error_message(cls):
+        return 'Book is not in catalogue'
+
     def is_book_in_catalogue(self, book):
         return book in self._books
 

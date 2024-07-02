@@ -32,7 +32,7 @@ class InternalSystemTests(unittest.TestCase):
         cart_id = self._system.create_cart(self._a_client_id(), self._a_password())
         self._system.add_to_cart(cart_id, self._catalogue.a_book(), self._catalogue.DEFAULT_QUANTITY)
 
-        current_books_in_cart = self._system.list_cart(self._a_client_id())
+        current_books_in_cart = self._system.list_cart(cart_id)
 
         self._assert_book_isbn_and_quantity_is_valid_for(current_books_in_cart, cart_id)
 
@@ -45,6 +45,22 @@ class InternalSystemTests(unittest.TestCase):
         non_existing_cart_id = self._an_invalid_cart_id()
 
         self._assert_cannot_list_books_to_non_existing_cart(non_existing_cart_id)
+
+    def test_06_can_have_multiple_carts(self):
+        cart_id = self._system.create_cart(self._a_client_id(), self._a_password())
+        another_cart_id = self._system.create_cart(self._a_client_id(), self._a_password())
+
+        self.assertNotEquals(cart_id, another_cart_id)
+
+    def test_07_can_add_books_to_multiple_carts(self):
+        cart_id = self._system.create_cart(self._a_client_id(), self._a_password())
+        another_cart_id = self._system.create_cart(self._a_client_id(), self._a_password())
+
+        self._system.add_to_cart(cart_id, self._catalogue.a_book(), self._catalogue.DEFAULT_QUANTITY)
+        self._system.add_to_cart(another_cart_id, self._catalogue.another_book(), self._catalogue.DEFAULT_QUANTITY)
+
+        self._assert_books_were_successfully_added_to_cart_for(cart_id, [self._catalogue.a_book()])
+        self._assert_books_were_successfully_added_to_cart_for(another_cart_id, [self._catalogue.another_book()])
 
     def _assert_book_isbn_and_quantity_is_valid_for(self, current_books_in_cart, cart_id):
         self.assertEqual([f"{self._catalogue.a_book()}|{cart_id}"], current_books_in_cart)

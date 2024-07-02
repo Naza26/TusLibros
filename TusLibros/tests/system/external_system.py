@@ -7,10 +7,10 @@ from system.external_system import ExternalSystem
 class ExternalSystemFactory:
 
     def __init__(self):
-        self.system = ExternalSystem()
+        self.external_system = ExternalSystem()
 
     def system(self):
-        return self.system
+        return self.external_system
 
     def create_body_with_empty_client_id(self):
         return {'client_id': None, 'password': 'password'}

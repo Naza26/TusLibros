@@ -11,7 +11,7 @@ class Cart:
 
     def add_book(self, book):
         if not self._catalogue.is_book_in_catalogue(book):
-            raise ValueError('Book is not in catalogue')
+            raise ValueError(Catalogue.book_is_not_in_catalogue_error_message())
         self._items.append(book)
 
     def contains_book(self, book):

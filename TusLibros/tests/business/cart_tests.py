@@ -39,6 +39,15 @@ class CartTests(unittest.TestCase):
     def test_06_cannot_add_book_that_is_not_in_catalogue(self):
         self._assert_cannot_add_book_that_is_not_in_catalogue(self._cart)
 
+    def test_07_can_add_books_in_multiple_carts(self):
+        another_cart = Cart(self._catalogue)
+
+        self._cart.add_book(self._a_book())
+        another_cart.add_book(self._another_book())
+
+        self.assertTrue(self._cart.contains_book(self._a_book()))
+        self.assertTrue(another_cart.contains_book(self._another_book()))
+
     def _assert_cannot_add_book_that_is_not_in_catalogue(self, cart):
         with self.assertRaises(ValueError) as context:
             cart.add_book(self._a_book_that_is_not_in_catalogue())
