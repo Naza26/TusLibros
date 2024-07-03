@@ -21,7 +21,6 @@ class WebServer:
     def _register_endpoints(self):
         @self._app.route('/createCart')
         def create_cart():
-
             return self._execute_resource_for('create_cart')
 
         @self._app.route('/addToCart')
@@ -40,15 +39,15 @@ class WebServer:
         def list_purchases():
             return self._execute_resource_for('list_purchases')
 
-    def _execute_resource_for(self, endpoint):
-        http_request = Request(request.method, endpoint, request.args.to_dict())
-        execute_resource_for = self._rest_interface_resource_from(endpoint)
-        http_response = execute_resource_for(http_request)
+    def _execute_resource_for(self, endpoint_name):
+        http_request = Request(request.method, endpoint_name, request.args.to_dict())
+        execute_endpoint_for = self._rest_interface_resource_from(endpoint_name)
+        http_response = execute_endpoint_for(http_request)
         # TODO: Check if this is the correct way to return the response
         return str(Response(http_response.content(), str(http_response.status_code())))
 
-    def _rest_interface_resource_from(self, endpoint):
-        return getattr(self._rest_interface, endpoint)
+    def _rest_interface_resource_from(self, endpoint_name):
+        return getattr(self._rest_interface, endpoint_name)
 
 
 if __name__ == '__main__':
