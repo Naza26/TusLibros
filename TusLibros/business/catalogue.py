@@ -27,3 +27,6 @@ class Catalogue:
 
     def another_book(self):
         return self._books[-1]
+
+    def a_book_that_is_not_in_catalogue(self):
+        return 'Cormen'
