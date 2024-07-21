@@ -30,7 +30,7 @@ class InternalSystem:
             cart.add_book(book_isbn)
             return self.SUCCESS_RESPONSE
         except ValueError:
-            self.ERROR_RESPONSE
+            return self.ERROR_RESPONSE
 
     def list_cart(self, cart_id):
         # I would want to validate that the cart id can be parsed
